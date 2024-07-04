@@ -47,73 +47,92 @@ class TodoPage extends StatelessWidget {
                     ),
                     state.todo.isNotEmpty
                         ? Expanded(
-                            child:
-                                ListView.builder(itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  context.read<TodoBloc>().add(
-                                      FetchSpecificTodo(
-                                          id: state.todo[index].id!));
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: ((context) =>
-                                          const DetailsTodoPage()),
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  height: 80,
-                                  margin: const EdgeInsets.only(bottom: 14),
-                                  child: Card(
-                                    elevation: 10,
-                                    color: Colors.blue,
-                                    child: Column(
-                                      children: [
-                                        ListTile(
-                                          title: Text(
-                                            state.todo[index].title
-                                                .toUpperCase(),
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          trailing: Row(
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: state.todo.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      context.read<TodoBloc>().add(
+                                          FetchSpecificTodo(
+                                              id: state.todo[index].id!));
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: ((context) =>
+                                              const DetailsTodoPage()),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.only(bottom: 14),
+                                      child: Card(
+                                        elevation: 10,
+                                        color: Colors.blue,
+                                        child: Padding(
+                                          padding: EdgeInsets.all(10),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              IconButton(
-                                                onPressed: () {
-                                                  context
-                                                      .read<TodoBloc>()
-                                                      .add(DeleteTodo(
-                                                        id: state
-                                                            .todo[index].id!,
-                                                      ));
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      duration: Duration(
-                                                        seconds: 1,
-                                                      ),
-                                                      content:
-                                                          Text("deleted todo"),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    state.todo[index].title
+                                                        .toUpperCase(),
+                                                    style: const TextStyle(
+                                                      fontSize: 28,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
-                                                  );
-                                                },
-                                                icon: const Icon(
-                                                  Icons.delete,
-                                                  color: Colors.red,
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      context
+                                                          .read<TodoBloc>()
+                                                          .add(DeleteTodo(
+                                                            id: state
+                                                                .todo[index]
+                                                                .id!,
+                                                          ));
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        const SnackBar(
+                                                          duration: Duration(
+                                                            seconds: 1,
+                                                          ),
+                                                          content: Text(
+                                                              "deleted todo"),
+                                                        ),
+                                                      );
+                                                    },
+                                                    icon: const Icon(
+                                                      Icons.delete,
+                                                      color: Colors.red,
+                                                      size: 36,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Text(
+                                                state.todo[index].description
+                                                    .toUpperCase(),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        )
-                                      ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            }),
+                                  );
+                                }),
                           )
                         : const Text(''),
                   ],

@@ -8,8 +8,9 @@ class ITodoRespository extends TodoRepository {
   ITodoRespository({required this.dbService});
 
   @override
-  Future<Todo> addTodo({required Todo todo}) {
-    return DatabaseService.instance.create(todo);
+  Future<void> addTodo({required Todo todo}) {
+    DatabaseService.instance.create(todo);
+    return DatabaseService.instance.readAllTodos();
   }
 
   @override

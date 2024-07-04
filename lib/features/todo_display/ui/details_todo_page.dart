@@ -38,13 +38,21 @@ class _DetailsTodoPageState extends State<DetailsTodoPage> {
         child: BlocBuilder<TodoBloc, TodoState>(builder: (context, state) {
           if (state is DisplaySpecificTodo) {
             Todo currentTodo = state.todo;
+            _text.text = state.todo.title;
+            _desc.text = state.todo.description;
             return Column(
               children: [
                 const CustomText(text: 'Title'),
                 const SizedBox(
                   height: 10,
                 ),
-                TextFormField(controller: _text, enabled: false),
+                TextFormField(
+                  controller: _text,
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  enabled: false,
+                ),
                 const SizedBox(height: 10),
                 const CustomText(text: 'Desc'),
                 const SizedBox(height: 10),

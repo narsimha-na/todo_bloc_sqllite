@@ -21,6 +21,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
             createdTime: event.createdTime,
           ),
         );
+        emit(DisplayTodos(todo: todos));
       },
     );
     on<UpdateTodo>(

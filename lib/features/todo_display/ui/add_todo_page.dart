@@ -57,6 +57,9 @@ class _AddTodoPageState extends State<AddTodoPage> {
                             createdTime: DateTime.now(),
                           ),
                         );
+                    context.read<TodoBloc>().add(
+                          const FetchTodos(),
+                        );
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('todo added successfully')),
                     );

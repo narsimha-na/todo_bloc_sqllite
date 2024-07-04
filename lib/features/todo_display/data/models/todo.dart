@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:todo_bloc_sqllite/core/constants/db_helper.dart';
+
 class Todo {
   final int? id;
   final bool isImportant;
@@ -37,24 +39,24 @@ class Todo {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'id': id,
-      'isImportant': isImportant,
-      'number': number,
-      'title': title,
-      'description': description,
-      'createdTime': createdTime.millisecondsSinceEpoch,
+      DbHelper.id: id,
+      DbHelper.isImportant: isImportant ? 1 : 0,
+      DbHelper.number: number,
+      DbHelper.title: title,
+      DbHelper.description: description,
+      DbHelper.time: createdTime.millisecondsSinceEpoch,
     };
   }
 
   factory Todo.fromJson(Map<String, dynamic> map) {
     return Todo(
-      id: map['id'] != null ? map['id'] as int : null,
-      isImportant: map['isImportant'] as bool,
-      number: map['number'] as int,
-      title: map['title'] as String,
-      description: map['description'] as String,
+      id: map[DbHelper.id] != null ? map[DbHelper.id] as int : null,
+      isImportant: map[DbHelper.isImportant] == 1,
+      number: map[DbHelper.number] as int,
+      title: map[DbHelper.title] as String,
+      description: map[DbHelper.description] as String,
       createdTime:
-          DateTime.fromMillisecondsSinceEpoch(map['createdTime'] as int),
+          DateTime.fromMillisecondsSinceEpoch(map[DbHelper.time] as int),
     );
   }
 
